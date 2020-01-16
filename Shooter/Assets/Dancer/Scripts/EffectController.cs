@@ -4,20 +4,8 @@ using UnityEngine;
 using Valve.VR;
 using UnityEngine.Events;
 
-/// <summary>
-/*	- grip will spawn trail
- *	- trigger spanws burst
- *	- wheel controls trail size
- *	- wheel press toggles 2 types of bursts
-*/
-/// </summary>
-
-
 public class EffectController : MonoBehaviour
 {
-	// music manager
-	public NoteManager manager;
-
 	//controlelr stuff
 	public SteamVR_Input_Sources source;
 	public SteamVR_Action_Boolean TriggerAction, GripAction;
@@ -62,15 +50,5 @@ public class EffectController : MonoBehaviour
 		{
 			trailParts.Stop();
 		}
-	}
-
-	IEnumerator CreateParts()
-	{
-		while (true)
-		{
-			
-			yield return null;
-		}
-		yield return 0;
 	}
 }
