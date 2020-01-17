@@ -2,43 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialChanger : MonoBehaviour
+public class MaterialChanger : Actionable
 {
-	[SerializeField]
-	private Material startMaterial, newMaterial;
-	[SerializeField]
+	//[SerializeField]
+	//private Material newMaterial;
+
+	private Material newMaterial;
+
+	private Material curMaterial
+	{
+		get { return GetComponent<MeshRenderer>().material; }
+		set { GetComponent<MeshRenderer>().material = value; }
+	}
 	private MeshRenderer meshRend;
 
-	private float changeRate = .5f;
+	private const float maxEmission = 10;
+	private float changeRate = .2f;
 
 	private void Start()
 	{
-		startMaterial = meshRend.material;
+		if (GetComponent<MeshRenderer>() != null)
+		{
+			newMaterial = new Material(curMaterial);
+		}
+		// get rid of script if no mesh renderer
+		else
+		{
+			Debug.Log(name + " has no meshrend: DESTROYING");
+			Destroy(this);
+		}
 	}
 
-	private void OnEnable()
+	public override void TriggerAction()
 	{
-		GetComponent<OnCollisionEvent>().OnCollision += ChangeMaterial;
-	}
+		// set values
+		curMaterial = newMaterial;
+		curMaterial.SetColor("_EmissionColor", Color.green * 5);
+		curMaterial.EnableKeyword("_EMISSION");
 
-	private void ChangeMaterial()
-	{
-		meshRend.material = newMaterial;
+		Debug.Log("start");
 		StartCoroutine(ChangeColorOverTime());
 	}
 
 	IEnumerator ChangeColorOverTime()
 	{
-		float maxEmission = 10;
-		while (maxEmission > 0)
+		float curEmission = maxEmission;
+		while (curEmission > 0)
 		{
-			// todo : get materials value and set it lower
+			curMaterial.SetColor("_EmissionColor", Color.Lerp(Color.black, Color.green, curEmission / maxEmission));
 
 			// decrement
-			maxEmission -= changeRate;
+			curEmission -= changeRate;
 
 			yield return null;
 		}
+		Debug.Log("end");
 		yield return 0;
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 // todo : change to derive from class so that actions can be called ambiguously 
@@ -10,7 +11,7 @@ public class OnCollisionEvent : MonoBehaviour
 	Collider col;
 	private const float colDuration = .2f;
 
-	public Action OnCollision;
+	public UnityEvent OnCollision;
 
 	private void Start()
 	{
@@ -21,6 +22,8 @@ public class OnCollisionEvent : MonoBehaviour
 
 	public void ActivateCollider()
 	{
+		if (col.enabled) return;
+
 		col.enabled = true;
 		Invoke("DeactivateCollider", colDuration);
 	}
@@ -30,12 +33,19 @@ public class OnCollisionEvent : MonoBehaviour
 		col.enabled = false;
 	}
 
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider col)
 	{
-		if (collision.gameObject.tag == "Interactable")
+		if (col.gameObject.tag == "Interactable")
 		{
-			// action
+			Debug.Log(col.name + " entered");
+			// call events on this
 			if (OnCollision != null) OnCollision.Invoke();
+
+			// call action on other object
+			if (col.gameObject.GetComponent<ActionHandler>() != null)
+			{
+				col.gameObject.GetComponent<ActionHandler>().TriggerEvent.Invoke();
+			}
 
 			// disable for next
 			DeactivateCollider();
