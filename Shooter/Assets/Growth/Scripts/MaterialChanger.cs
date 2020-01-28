@@ -17,7 +17,7 @@ public class MaterialChanger : Actionable
 	private MeshRenderer meshRend;
 
 	private const float maxEmission = 10;
-	private float changeRate = .2f;
+	private float changeRate = .08f;
 
 	private void Start()
 	{

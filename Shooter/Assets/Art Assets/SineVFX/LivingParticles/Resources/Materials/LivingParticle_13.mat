@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: LivingParticle_13
   m_Shader: {fileID: 4800000, guid: dc9a61d2295a437418109dd50d894974, type: 3}
   m_ShaderKeywords: _CLOSEFADEENABLED_ON _KEYWORD0_ON _LOCKYOFFSET_ON _USEPIXELDISTANCE_ON
@@ -101,7 +102,7 @@ Material:
     - _CloseFadeEnabled: 1
     - _Cutoff: 0.5
     - _Distance: 2
-    - _DistancePower: 1.5
+    - _DistancePower: 0.4
     - _FadeCloseDistance: 0.65
     - _FinalMaskMultiply: 1
     - _FinalPower: 4
