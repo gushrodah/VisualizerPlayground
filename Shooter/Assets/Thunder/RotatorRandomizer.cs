@@ -11,6 +11,6 @@ public class RotatorRandomizer : MonoBehaviour
 	public void ChangeRotation()
 	{
 		Rotator rot = GetComponent<Rotator>();
-		rot.worldRotationSpeed = new Vector3(Random.Range(-maxRot, maxRot), Random.Range(-maxRot, maxRot), Random.Range(-maxRot, maxRot));
+		//rot.worldRotationSpeed = new Vector3(Random.Range(-maxRot, maxRot), Random.Range(-maxRot, maxRot), Random.Range(-maxRot, maxRot));
 	}
 }
